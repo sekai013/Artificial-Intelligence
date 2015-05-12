@@ -4,6 +4,7 @@ window.onload = function() {
 	var puzzleForm = document.getElementById('puzzleForm');
 	var onSubmitPuzzleForm = function(e) {
 		e.preventDefault();
+		document.getElementById('result').innerHTML = '';
 
 		const ANSWER = {
 			1: [0, 0], 2: [0, 1], 3: [0, 2],
@@ -133,7 +134,6 @@ window.onload = function() {
 							endTagIndex = parent.indexOf('</', ++endTagIndex);
 						}
 					}
-					console.log(correct);
 				}
 
 				return parent.slice(0, endTagIndex) + child + parent.slice(endTagIndex);
@@ -167,7 +167,7 @@ window.onload = function() {
 				algoTemplate = append(algoTemplate, 'cutoff', 'Cutoff: ' + cutoff);
 			}
 
-			result.innerHTML = algoTemplate;
+			result.innerHTML += algoTemplate;
 		}
 
 		var solver = function(puzzle, algorithm, evaluate) {
@@ -189,11 +189,19 @@ window.onload = function() {
 					node.wait = JSON.parse(JSON.stringify(waitNodes));
 					result.push(node);
 
+					var next = nextPuzzles(node);
+
+					displayData(node,
+											algorithm,
+											i,
+											next,
+											waitNodes.map(function(node) { return node.name; }),
+											evaluate(node) + node.cost,
+											null);
+
 					if (evaluate(node) === 0) {
 						return result;
 					}
-
-					var next = nextPuzzles(node);
 
 					Array.prototype.push.apply(waitNodes, next);
 				}
@@ -209,11 +217,19 @@ window.onload = function() {
 						node.cutoff = cutoff;
 						result.push(node);
 
+						var next = nextPuzzles(node);
+
+						displayData(node,
+												algorithm,
+												trial,
+												next,
+												waitNodes.map(function(node) { return node.name; }),
+												evaluate(node) + node.cost,
+												node.cutoff);
+
 						if (evaluate(node) === 0) {
 							return result;
 						}
-
-						var next = nextPuzzles(node);
 
 						next.forEach(function(nd) {
 							if (nd.cost < cutoff) {
@@ -234,16 +250,7 @@ window.onload = function() {
 			var evalType   = document.getElementById('eval').value;
 			var puzzle     = puzzleFormatter(puzzleData);
 			var evaluate   = evaluationFunctions[evalType];
-			var puzzles    = solver(puzzle, algoType, evaluate);
-			//function(puzzle, algorithm, n, next, wait, fx, cutoff)
-			console.log(puzzles);
-			displayData(puzzles[0],
-									algoType,
-									1,
-									nextPuzzles(puzzles[0]),
-									[],
-									evaluate(puzzles[0]) + puzzles[0].cost,
-									evaluate(puzzles[0]));
+			solver(puzzle, algoType, evaluate);
 		} catch (e) {
 			console.log(e, e.message);
 		}

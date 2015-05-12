@@ -29,7 +29,8 @@ div.summary {
 	padding-right: 20px;
 }
 
-div.next {
+div.next div.node:last-child {
+	float: none;
 	position: relative;
-	bottom: 25px;
+	top: 16px;
 }
