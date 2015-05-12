@@ -1,0 +1,35 @@
+div#text {
+	float: left;
+}
+
+div#caption {
+	float: left;
+	position: relative;
+	left: 20px;
+	bottom: 15px;
+}
+
+div#example {
+	position: relative;
+	left: 35px;
+}
+
+div.node {
+	float: left;
+	padding-right: 10px;
+}
+
+div.current {
+	float: left;
+}
+
+div.summary {
+	float: left;
+	padding-left: 30px;
+	padding-right: 20px;
+}
+
+div.next {
+	position: relative;
+	bottom: 25px;
+}
