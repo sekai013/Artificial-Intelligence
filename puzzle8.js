@@ -156,7 +156,7 @@ window.onload = function() {
 
 			algoTemplate = append(algoTemplate, 'current', puzzle);
 			algoTemplate = append(algoTemplate, 'try', 'Try: ' + n);
-			algoTemplate = append(algoTemplate, 'wait', 'Unopened Nodes: ' + JSON.stringify(wait));
+			algoTemplate = append(algoTemplate, 'wait', 'Unexpanded Nodes: ' + JSON.stringify(wait));
 
 			algoTemplate = append(algoTemplate, 'fx', 'Value of f(x): ' + fx);
 			next.forEach(function(node) {
