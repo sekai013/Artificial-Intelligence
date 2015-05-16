@@ -115,7 +115,7 @@ window.onload = function() {
 
 		var displayData = function(puzzle, algorithm, n, next, wait, fx, cutoff) {
 			var append = function(parent, className, child) {
-				var index         = parent.indexOf('class="' + className + '"');
+				var index         = parent.indexOf('class="' + className);
 				var startTagIndex = parent.indexOf('<', index);
 				var endTagIndex   = parent.indexOf('</', index);
 				var correct       = 1;

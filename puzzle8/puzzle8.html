@@ -3,46 +3,69 @@
 	<head>
 		<meta charset = "utf-8">
 		<title>8 Puzzle Solver</title>
-		<link rel="stylesheet" href="puzzle8.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="./puzzle8.css" />
 		<script src="puzzle8.js"></script>
 	</head>
 	<body>
 		<h1>8 Puzzle Solver</h1>
-		<form id="puzzleForm" action="#">
-			<div id="text">
-				<label for="puzzle">Enter 8-Puzzle Here</label><br />
-				<textarea id="puzzle" rows="3" cols="3"></textarea>
+		<form id="puzzleForm" class="puzzle-form" action="#">
+			<div class="row">
+				<div id="text" class="col-sm-3">
+					<h3>Enter 8-Puzzle Here!</h3>
+					<textarea id="puzzle" rows="3" cols="3"></textarea>
+				</div>
+				<div id="caption" class="col-sm-4">
+					<h3>How to Use</h3>
+					<div class="caption-text">
+						<ul>
+							<li>Enter rows of puzzle separated with spaces<br>(use *[asterisk] as empty space)</li>
+							<li>Select Algorithm and Evaluation Function.</li>
+							<li>Push "Solve" button!</li>
+						</ul>
+					</div>
+				</div>
+				<div id="example" class="col-sm-5">
+					<h3>Input Example</h3>
+					<div class="example-puzzle">
+						1 2 3<br />
+						4 5 6<br />
+						7 8 *
+					</div>
+				</div>
 			</div>
-			<div id="caption">
-				<p><b>パズルの入力方法</b></p>
-				1行はスペース区切りで入力する<br />
-				パズルの空白部分は * を入力する
+			<div class="row">
+				<div class="col-sm-2">
+					<label for="algo">Algorithm</label>
+				</div>
+				<div class="col-sm-1">
+					<select id="algo" class="form-control">
+						<option value="Astar">A*</option>
+						<option value="IDAstar">IDA*</option>
+					</select>
+				</div>
 			</div>
-			<div id="example">
-				<p><b>入力例</b></p>
-				1 2 3<br />
-				4 5 6<br />
-				7 8 *
+			<div class="row">
+				<div class="col-sm-2">
+					<label for="eval">Evaluation Function</label>
+				</div>
+				<div class="col-sm-3">
+					<select id="eval" class="form-control">
+						<option value="incorrectTiles">The Number of Incorrect tiles</option>
+						<option value="manhattanDistance">Manhattan Distance</option>
+					</select>
+				</div>
 			</div>
-			<br />
-			<label for="algo">アルゴリズム</label>
-			<select id="algo">
-				<option value="Astar">A*</option>
-				<option value="IDAstar">IDA*</option>
-			</select>
-			<br />
-			<label for="eval">評価関数</label>
-			<select id="eval">
-				<option value="incorrectTiles">位置が正しくないタイルの数</option>
-				<option value="manhattanDistance">マンハッタン距離</option>
-			</select>
-			<br />
-			<input type="submit" value="Solve" />
+			<div class="row">
+				<div class="col-sm-1">
+					<input type="submit" value="Solve" class="form-control"/>
+				</div>
+			</div>
 		</form>
 		<div id="result"></div>
 
 		<script id="nodeTemplate" type="text/template">
-			<div class="node">
+			<div class="node col-sm-2">
 				<p class="name"></p>
 				<table border="1">
 					<tr>
@@ -65,30 +88,30 @@
 		</script>
 
 		<script id="AstarTemplate" type="text/template">
-			<div class="wrap">
+			<div class="row">
 				<div class="current">
 				</div>
-				<div class="summary">
+				<div class="summary col-sm-2">
 					<p class="try"></p>
 					<p class="wait"></p>
 					<p class="fx"></p>
 				</div>
-				<div class="next">
+				<div class="next col-sm-8 row">
 				</div>
 			</div>
 		</script>
 
 		<script id="IDAstarTemplate" type="text/template">
-			<div class="wrap">
+			<div class="row">
 				<div class="current">
 				</div>
-				<div class="summary ida">
+				<div class="summary col-sm-2">
 					<p class="try"></p>
 					<p class="cutoff"></p>
 					<p class="wait"></p>
 					<p class="fx"></p>
 				</div>
-				<div class="next">
+				<div class="next col-sm-8 row">
 				</div>
 			</div>
 		</script>
