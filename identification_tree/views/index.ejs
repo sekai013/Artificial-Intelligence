@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Identification Tree Creater</title>
+		<!-- <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' /> -->
+  </head>
+  <body>
+		<h1>Identification Tree Creater</h1>
+		<form action="/new/property" method="POST">
+			<table border="1">
+				<tr>
+					<td><label for="propertyName">Property Name</label></td>
+					<td><label for="propertyCandidates">Candidates(delimiter is newline)</label></td>
+				<tr>
+					<td>
+						<input type="text" id="propertyName" name="propertyName" class="form-control"/>
+					</td>
+					<td>
+						<textarea id="propertyCandidates" name="propertyCandidates" class="form-control"></textarea>
+					</td>
+					<td>
+						<input type="submit" class="btn btn-default" value="Add Property" />
+					</td>
+				</tr>
+			</table>
+		</form>
+		<form action="/new/sample" method="POST">
+			<table>
+				<tr>
+					<th>Sample Name</th>
+					<% for (var i = 0; i < properties.length; i++) { %>
+						<th><%= properties[i].name %></th>
+					<% } %>
+				</tr>
+				<% for (var j = 0; j < samples.length; j++) { %>
+				<tr>
+					<td>
+						<%= samples[j].sampleName %>
+					</td>
+					<% for (var k = 0; k < properties.length; k++) { %>
+					<td><%= samples[j][properties[k].name] %></td>
+					<% } %>
+				</tr>
+				<% } %>
+				<tr>
+					<td>
+						<input type="text" id="sampleName" name="sampleName" class="form-control"/>
+					</td>
+					<% for (i = 0; i < properties.length; i++) { %>
+						<td>
+							<select id="<%= properties[i].name %>" name="<%= properties[i].name %>" class="form-control">
+								<% for (j = 0; j < properties[i].candidates.length; j++) { %>
+									<option id="<%= properties[i].name %>_<%= j %>" name="<%= properties[i].name %>_<%= j %>"><%= properties[i].candidates[j] %></option>
+								<% } %>
+							</select>
+						</td>
+					<% } %>
+					<td>
+						<input type="submit" class="btn btn-default" value="Add Sample" />
+					</td>
+				</tr>
+			</table>
+		</form>
+		<form action="/create" method="GET">
+			<label for="result">Result Property</label>
+			<select name="result" class="form-control" style="width:250px">
+				<% for (var i = 0; i < properties.length; i++) { %>
+					<% if (properties[i].candidates.length === 2) { %>
+						<option value="<%= i %>"><%= properties[i].name %></option>
+					<% } %>
+				<% } %>
+			</select>
+			<input type="submit" value="Create Tree" class="col-sm-3 btn btn-default" />
+		</form>
+		<div class="row">
+			<form action="/clear" method="POST">
+				<input type="submit" value="Clear" class="col-sm-3 btn btn-default" />
+			</form>
+		</div>
+  </body>
+</html>

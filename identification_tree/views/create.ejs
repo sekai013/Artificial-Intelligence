@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Identification Tree Creater : Result</title>
+		<link rel="stylesheet" href="stylesheets/tree.css" />
+  </head>
+  <body>
+		<h1>Identification Tree Creater : Result</h1>
+		<table border="1">
+			<tr>
+				<th>Sample Name</th>
+				<% for (var i = 0; i < properties.length; i++) { %>
+				<th><%= properties[i].name %></th>
+				<% } %>
+			</tr>
+			<% for (var j = 0; j < samples.length; j++) { %>
+			<tr>
+				<td>
+					<%= samples[j].sampleName %>
+				</td>
+				<% for (var k = 0; k < properties.length; k++) { %>
+				<td><%= samples[j][properties[k].name] %></td>
+				<% } %>
+			</tr>
+			<% } %>
+		</table>
+		<div class="tree">
+			<ul>
+				<%- dom %>
+			</ul>
+		</div>
+  </body>
+</html>
